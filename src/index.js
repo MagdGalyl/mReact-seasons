@@ -8,8 +8,11 @@ if (module.hot) {
 
   
 const App = () =>{
+    // Getting User GEO Location using Bellow CallBack
+    window.navigator.geolocation.getCurrentPosition((position) => console.log(position), (err) => console.log(err));
+
     return (
-        <div>Yo</div>
+        <div>Latitude: </div>
     );
 };
 
