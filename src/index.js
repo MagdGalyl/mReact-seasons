@@ -27,7 +27,7 @@ class App extends React.Component {
         // Intialising State
         // This is the ONLY TIME we do direct assignment
         // to this.state
-        this.state = { lat: null };
+        this.state = { lat: null, errorMsg: '' };
 
         // Getting User GEO Location using Bellow CallBack
         window.navigator.geolocation.getCurrentPosition ( (position) => { 
@@ -38,18 +38,25 @@ class App extends React.Component {
         
             // We didNOT call
             // this.state.lat = position.coords.latitude
-        } , (err) => console.log(err));
-    }
+        } , (err) => { 
+            this.setState({errorMsg: err.message});
+    });
+}
 
     // React Require that we DEFINE render() method thats Retun JSX
     render(){
+        //     Refrence STATE
+        if (this.state.errorMsg && !this.state.lat) {
+            return <div> Error: {this.state.errorMsg} </div>
+        };
 
+        if (!this.state.errorMsg && this.state.lat) {
+            return <div> Latitude: {this.state.lat} </div>
+        };
 
-        return (
-            // Refrence STATE
-            <div>Latitude: {this.state.lat} </div>
-        );
-    }
-}
+        return <div>Loading!!!</div>;
+    
+    };
+};
 
 ReactDOM.render(<App />, document.querySelector("#root"));
