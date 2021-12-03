@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'semantic-ui-css/semantic.min.css'
 import SeasonDisplay from './SeasonDisplay'
 import Spinner from './Spinner'
 
@@ -40,8 +39,8 @@ class App extends React.Component {
     //     console.log('My cmponent just updated - it ReRendered')
     // }
 
-    // React Require that we DEFINE render() method thats Retun JSX
-    render(){
+    // Helper Function
+    renderContent(){
         //     Refrence STATE
         if (this.state.errorMsg && !this.state.lat) {
             return <div> Error: {this.state.errorMsg} </div>
@@ -51,8 +50,21 @@ class App extends React.Component {
             return <SeasonDisplay lat = {this.state.lat}/>
         };
 
-        return <div><Spinner message="Please accept location request"/></div>;
+        return (
+            <div>
+                <Spinner message="Please accept location request"/>
+            </div>);
     
+    };
+
+    // React Require that we DEFINE render() method thats Retun JSX
+    render(){
+        return (
+            <div> 
+                {/*We call the helper function*/}
+                {this.renderContent()};
+            </div>
+        );
     };
 };
 
